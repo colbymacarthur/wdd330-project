@@ -28,6 +28,7 @@ fetch('https://www.dnd5eapi.co/api/races/')
                 <p>Alignment</p><p>${descriptionData.alignment}</p>
                 <p>Size</p><p>${descriptionData.size_description}</p>
                 <p>Languages</p><p>${descriptionData.language_desc}</p>
+                <p>Traits</p><p>${descriptionData.traits.map(trait => trait.name).join(', ')}</p>
                 <button id="continue-button">Continue</button>
             </div>
             `;

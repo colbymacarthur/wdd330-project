@@ -25,8 +25,9 @@ fetch('http://www.dnd5eapi.co/api/classes/')
                 modal.innerHTML = `
                 <div>
                     <h2>${classData.name}</h2>
-                    <p>Features</p><p>${descriptionData.class_specific}</p>
-                    <p>Proficiency Bonus</p><p>${descriptionData.prof_bonus}</p>
+                    <p>Features</p><p>${descriptionData.features.map(feature => feature.name).join(', ')}</p>
+                    <p>Spell Casting</p><p>${descriptionData.spellcasting && descriptionData.spellcasting.spell_slots_level_1 != 0 ? 
+                    `${descriptionData.spellcasting.cantrips_known} Cantrips, ${descriptionData.spellcasting.spell_slots_level_1} Spell Slots` : 'No Magic'}</p>
                     <button id="continue-button">Continue</button>
                 </div>
                 `;
