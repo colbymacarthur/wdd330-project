@@ -1,5 +1,20 @@
+body {
+  background-color: gray;
+  padding: 20px;
+}
+
+h1, h2 {
+  text-align: center;
+  margin: 0 auto;
+}
+
+button {
+  display: block;
+  margin: 0 auto;
+}
+
 .race-card {
-  background-color: lightcoral; /* grey background */
+  background-color: lightcoral; 
   padding: 20px;
   margin-bottom: 20px;
   border-radius: 10px;
@@ -7,7 +22,7 @@
 }
 
 .class-card {
-  background-color: lightblue; /* grey background */
+  background-color: lightblue; 
   padding: 20px;
   margin-bottom: 20px;
   border-radius: 10px;
@@ -16,15 +31,14 @@
 
 #card-container {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 3 columns, equal width */
-  grid-gap: 20px; /* gap between cards */
+  grid-template-columns: repeat(3, 1fr); 
+  grid-gap: 20px; 
 }
 
 .hidden {
   display: none;
 }
 
-/* Add this to your CSS */
 #modal {
   position: fixed;
   top: 0;
@@ -43,6 +57,7 @@
 
 #modal > * {
   background-color: #fff;
+  width: 80%;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
@@ -50,12 +65,12 @@
 
 @media (max-width: 768px) {
   #card-container {
-    grid-template-columns: repeat(2, 1fr); /* 2 columns on smaller screens */
+    grid-template-columns: repeat(2, 1fr); 
   }
 }
 
 @media (max-width: 480px) {
   #card-container {
-    grid-template-columns: 1fr; /* 1 column on very small screens */
+    grid-template-columns: 1fr; 
   }
 }
