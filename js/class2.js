@@ -7,24 +7,39 @@ fetch('https://api.open5e.com/v2/classes/')
 
     classList.forEach(classData => {
       if (classData.subclass_of === null) {
-        console.log(classData);
-        const card = document.createElement('div');
-        card.classList.add('class-card');
-        card.innerHTML = `
-          <h2>${classData.name}</h2>
-          `;
-        cardContainer.appendChild(card);
-
-        // Add event listener to toggle description visibility
-        card.addEventListener('click', () => {
-          modal.innerHTML = `
-          <div>
-              <h2>${classData.name}</h2>
-              <p>Features</p><p>${classData.levels.features.map(features => features.name).join(', ')}</p></p>
-              <button id="continue-button">Continue</button>
-          </div>
-          `;
-          modal.classList.add('open');
+        const levelOneFeatures = classData.levels[1].features;
+        const levelTwoFeatures = classData.levels[2].features;
+    
+        // Fetch feature descriptions
+        const fetchFeatureDescriptions = async (features) => {
+          const featureDescriptions = await Promise.all(features.map((featureKey) => {
+            return fetch(`https://api.open5e.com/v2/classes/${classData.key}/features/desc/`)
+              .then(response => response.json())
+              .then(data => data.desc);
+          }));
+          return featureDescriptions;
+        };
+    
+        // Fetch and display feature descriptions
+        fetchFeatureDescriptions(levelOneFeatures).then((descriptions) => {
+          console.log(descriptions);
+          // Display feature descriptions in the modal
+          card.addEventListener('click', () => {
+            modal.innerHTML = `
+              <div>
+                <h2>${classData.name}</h2>
+                <p>Features</p>
+                <ul>
+                  ${descriptions.map((description) => `<li>${description}</li>`).join('')}
+                </ul>
+                <p>Level 2 Features</p>
+                <ul>
+                  ${levelTwoFeatures.map((feature) => `<li>${feature.name}</li>`).join('')}
+                </ul>
+                <button id="continue-button">Continue</button>
+              </div>
+            `;
+            modal.classList.add('open');
 
           // Store the selected class in localStorage
           localStorage.setItem('selectedClass', JSON.stringify(classData.name));
@@ -35,6 +50,7 @@ fetch('https://api.open5e.com/v2/classes/')
             window.location.href = 'background.html';
           });
         });
+      });
       }
     });
 
