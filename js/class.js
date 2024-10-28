@@ -1,4 +1,4 @@
-fetch('http://www.dnd5eapi.co/api/classes/')
+fetch('https://www.dnd5eapi.co/api/classes/')
     .then(response => response.json())
     .then(data => {
         const classList = data.results;
